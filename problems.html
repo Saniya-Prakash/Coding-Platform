@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>CODEKIN</title>
+        <link href="problems.css" type="text/css" rel="stylesheet">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+    <body>
+        <header>
+            <!-- Your existing header content -->
+            <div id="navbar">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 200">
+                    <g class="logo-triangle">
+                      <path d="M100 160 L180 30 L20 30 Z" fill="none" stroke="#e100ff" stroke-width="4"/>
+                      <path d="M100 140 L165 40 L35 40 Z" fill="none" stroke="#e100ff" stroke-width="4" opacity="0.7"/>
+                      <path d="M100 120 L150 50 L50 50 Z" fill="none" stroke="#e100ff" stroke-width="4" opacity="0.4"/>
+                    </g>
+                    <text x="220" y="110" font-family="Arial Black, Arial Bold, sans-serif" font-size="100" font-weight="900" fill="#ffffff">CodeKin</text>
+                  </svg>
+            </div>
+            <div class="tabs">
+                <div class="pages">
+                    <a href="homepage.html" class="nav-button">Home</a>
+                    <a href="problems.html" class="nav-button">Practice</a>
+                    <a href="courses.html" class="nav-button">Courses</a>
+                </div>
+                <div class="dropdown">
+                    <button class="dropbtn">▾</button>
+                    <div class="dropdown-content">
+                        <a href="Profile.html">Profile</a>
+                        <a href="editprofile.html">Edit Profile</a>
+                        <a href="HelpDesk.html">Help Desk</a>
+                        <a href="logout.html">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div id="courses">
+            <!-- Your existing courses content -->
+            <div class="box">
+                <img src="https://assets.leetcode.com/users/images/49479bba-73b3-45d2-9272-99e773d784b2_1687290663.3168745.jpeg">
+            </div>
+            <div class="box">
+                <img src="https://assets.leetcode.com/users/images/770789b0-c96b-4663-86d1-baab25534864_1669795265.8012726.png">
+            </div>
+            <div class="box">
+                <img src="https://assets.leetcode.com/users/images/49479bba-73b3-45d2-9272-99e773d784b2_1687290663.3168745.jpeg">
+            </div>
+            <div class="box">
+                <img src="https://assets.leetcode.com/users/images/770789b0-c96b-4663-86d1-baab25534864_1669795265.8012726.png">
+            </div>
+        </div>
+        <div id="content">
+            <div>
+                <h2>WANNA PRACTICE?</h2>
+            </div>
+            <div id="form">
+                <!-- Your existing form content -->
+                <form action="/action_page.php" class="form1 form">
+                    <label for="Tag">Tags:</label>
+                    <select name="Tag" id="Tag">
+                        <option value="Choose">Choose</option>
+                        <option value="Array">Array</option>
+                        <option value="String">String</option>
+                        <option value="Linked List">Linked List</option>
+                        <option value="Sliding Window">Sliding Window</option>
+                        <option value="Two Pointer">Two Pointer</option>
+                        <option value="Graph">Graph</option>
+                        <option value="Tree">Tree</option>
+                        <option value="Recursion">Recursion</option>
+                        <option value="Backtracking">Backtracking</option>
+                        <option value="Dynamic Programming">Dynamic Programming</option>
+                        <option value="Stack/Queue">Stack/Queue</option>
+                        <option value="Binary Search">Binary Search</option>
+                        <option value="Trie">Trie</option>
+                    </select>
+                </form>
+                <form action="/action_page.php" class="form2 form">
+                    <label for="Difficulty">Difficulty</label>
+                    <select name="Difficulty" id="Difficulty">
+                        <option value="Choose">Choose</option>
+                        <option value="Easy">Easy</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Hard">Hard</option>
+                    </select>
+                </form>
+                <form action="/action_page.php" class="form3 form">
+                    <label for="Status">Status</label>
+                    <select name="Status" id="Status">
+                        <option value="Choose">Choose</option>
+                        <option value="Solved">Solved</option>
+                        <option value="Attempted">Attempted</option>
+                        <option value="Not Solved">Not Solved</option>
+                    </select>
+                </form>
+                <span>
+                    <span>Problem Name</span>
+                    <span><input type="text" id="text" class="form"></span>
+                </span>
+            </div>
+            <div id="problems">
+                <div class="problem p0">
+                    <span>STATUS</span>
+                    <span>TITLE</span>
+                    <span>DIFFICULTY</span>
+                    <span>CATEGORY</span>
+                    <span>COMPANIES</span>
+                </div>
+                <hr>
+            </div>
+            <!-- Pagination controls -->
+            <div id="pagination">
+                <button class="button-64" id="prev-btn" disabled><span class="text">Previous</span></button>
+                <span id="page-info"></span>
+                <button class="button-64" id="next-btn"><span class="text">Next</span></button>
+            </div>
+        </div>
+        
+        
+        <script>
+            let allProblems = [];
+            const problemsPerPage = 20; // Number of problems per page
+            let currentPage = 1;
+
+            // Fetch problems and initialize pagination
+            fetch("problems.json")
+                .then(response => response.json())
+                .then(problems => {
+                    allProblems = problems; // Store all problems
+                    renderProblems(currentPage); // Render the first page
+                    updatePaginationControls();
+                })
+                .catch(error => console.error("Error loading problems:", error));
+
+            // Render problems for the current page
+            function renderProblems(page) {
+                const list = document.getElementById("problems");
+                // Clear previous problems except the header
+                while (list.children.length > 2) { // Keep the header and <hr>
+                    list.removeChild(list.lastChild);
+                }
+
+                const start = (page - 1) * problemsPerPage;
+                const end = Math.min(start + problemsPerPage, allProblems.length);
+
+                for (let i = start; i < end; i++) {
+                    const problem = allProblems[i];
+                    const div = document.createElement("div");
+                    div.classList.add("problem", "p" + problem.id);
+
+                    const span1 = document.createElement("span");
+                    div.appendChild(span1); // Status (empty for now)
+
+                    const span2 = document.createElement("span");
+                    span2.innerHTML = `<a href="p2.html?id=${problem.id}">${problem.title}</a>`;
+                    div.appendChild(span2);
+
+                    const span3 = document.createElement("span");
+                    span3.textContent = problem.difficulty;
+                    div.appendChild(span3);
+
+                    const span4 = document.createElement("span");
+                    const topics = problem.related_topics.split(",");
+                    const limitedTopics = topics.slice(0, Math.min(2, topics.length));
+                    span4.textContent = limitedTopics.join(", ");
+                    div.appendChild(span4);
+
+                    const span5 = document.createElement("span");
+                    const companies = problem.companies.split(",");
+                    const limitedCompanies = companies.slice(0, Math.min(2, companies.length));
+                    span5.textContent = limitedCompanies.join(", ");
+                    div.appendChild(span5);
+
+                    list.appendChild(div);
+                }
+            }
+
+            // Update pagination controls (Previous/Next buttons and page info)
+            function updatePaginationControls() {
+                const totalPages = Math.ceil(allProblems.length / problemsPerPage);
+                const pageInfo = document.getElementById("page-info");
+                pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+
+                const prevBtn = document.getElementById("prev-btn");
+                const nextBtn = document.getElementById("next-btn");
+
+                prevBtn.disabled = currentPage === 1;
+                nextBtn.disabled = currentPage === totalPages;
+            }
+
+            // Event listeners for pagination buttons
+            document.getElementById("prev-btn").addEventListener("click", () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderProblems(currentPage);
+                    updatePaginationControls();
+                }
+            });
+
+            document.getElementById("next-btn").addEventListener("click", () => {
+                const totalPages = Math.ceil(allProblems.length / problemsPerPage);
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderProblems(currentPage);
+                    updatePaginationControls();
+                }
+            });
+        </script>
+        <script src="problems.js"></script>
+    </body>
+</html>

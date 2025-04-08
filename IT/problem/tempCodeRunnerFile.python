@@ -1,0 +1,15 @@
+import requests
+
+url = "https://api.jdoodle.com/v1/execute"
+
+data = {
+    "script": "#include<iostream>\nusing namespace std;\nint main(){cout<<\"Hello, World!\"; return 0;}",
+    "language": "cpp17",
+    "versionIndex": "3",
+    "stdin": "",
+    "clientId": "9aa5311d99810b3db7f4d6aaaa83d5a9",
+    "clientSecret": "a09ed8c852ad4bf9e6e5ca1eadb08e693ab6d749e1d994e996cd9805a8d7791t"
+}
+
+response = requests.post(url, json=data)
+print(response.json())  # Expected output: {"output": "Hello, World!", "statusCode": 200, ...}

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Feedback Form</title>
+    <link rel="stylesheet" href="feedback.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+    <header>
+        <div id="navbar">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 200">
+                <g class="logo-triangle">
+                    <path d="M100 160 L180 30 L20 30 Z" fill="none" stroke="#e100ff" stroke-width="4"/>
+                    <path d="M100 140 L165 40 L35 40 Z" fill="none" stroke="#e100ff" stroke-width="4" opacity="0.7"/>
+                    <path d="M100 120 L150 50 L50 50 Z" fill="none" stroke="#e100ff" stroke-width="4" opacity="0.4"/>
+                </g>
+                <text x="220" y="110" font-family="Arial Black, Arial Bold, sans-serif" font-size="100" font-weight="900" fill="#ffffff">CodeKin</text>
+            </svg>
+        </div>
+        <div class="tabs">
+            <div class="pages">
+                <a href="homepage.html" class="nav-button" id="home">Home</a>
+                <a href="problems.html" class="nav-button" id="problems">Practice</a>
+                <a href="courses.html" class="nav-button" id="courses">Courses</a>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn">&#9662;</button>
+                <div class="dropdown-content">
+                    <a href="Profile.html">Profile</a>
+                    <a href="editprofile.html">Edit Profile</a>
+                    <a href="HelpDesk.html">Help Desk</a>
+                    <a href="index.html">Logout</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <h2>Feedback Form</h2>
+
+    <div class="text">
+        <h3>Note:</h3>
+        <p>We know that your time is limited, but your opinion is valuable to us. Please help us improve by completing the feedback below in just 2 minutes.</p>
+        <p class="red">* indicates required question</p>
+    </div>
+
+    <div class="text">
+        <form action="thank.html" method="post">
+            <label for="likedMost">1. What did you like the most about the website? <span class="red">*</span></label><br><br>
+            <textarea id="likedMost" name="likedMost" rows="4" cols="50" required></textarea><br><br>
+
+            <label for="designRating">2. How would you rate the website design and appearance? <span class="red">*</span></label><br><br>
+            <div class="star-rating">
+                <span class="star" data-value="1">&#9733;</span>
+                <span class="star" data-value="2">&#9733;</span>
+                <span class="star" data-value="3">&#9733;</span>
+                <span class="star" data-value="4">&#9733;</span>
+                <span class="star" data-value="5">&#9733;</span>
+            </div>
+            <div class="rating-value">Your rating: <span id="ratingValue">0</span></div><br>
+
+            <label for="additionalFeatures">3. What additional features would you like to see on the website?</label><br><br>
+            <textarea id="additionalFeatures" name="additionalFeatures" rows="4" cols="50"></textarea><br><br>
+
+            <label for="bugs">4. Did you encounter any bugs or false content while using the website?</label><br><br>
+            <textarea id="bugs" name="bugs" rows="4" cols="50"></textarea><br><br>
+
+            <label for="fileUpload">Attach image (optional, max 10 files, 100 MB each):</label><br><br>
+            <input type="file" id="fileUpload" name="fileUpload[]" multiple accept="image/*"><br><br>
+
+            <label for="experience">5. How was your overall experience? <span class="red">*</span></label><br><br>
+            <textarea id="experience" name="experience" rows="4" cols="50" required></textarea><br><br>
+
+            <label for="suggestions">6. Give any suggestions?</label><br><br>
+            <textarea id="suggestions" name="suggestions" rows="4" cols="50"></textarea><br><br>
+
+            <button type="submit" class="sb">Submit Feedback</button>
+        </form>
+    </div>
+
+    <script src="feedback.js"></script>
+</body>
+</html>
